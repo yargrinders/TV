@@ -7,407 +7,82 @@
 <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
   :root {
-    --dark: #0a0a0f;
-    --dark2: #111118;
-    --dark3: #1a1a25;
-    --card: #13131e;
-    --border: rgba(255,255,255,0.07);
-    --border-hover: rgba(255,255,255,0.15);
-    --text: #f0f0f8;
-    --muted: #888898;
-    --ard-color: #1a6bc4;
-    --ard-glow: rgba(26,107,196,0.3);
-    --zdf-color: #e8002d;
-    --zdf-glow: rgba(232,0,45,0.3);
-    --accent: #3d9aff;
-    --green: #22c55e;
+    --dark: #0a0a0f; --dark2: #111118; --dark3: #1a1a25; --card: #13131e;
+    --border: rgba(255,255,255,0.07); --border-hover: rgba(255,255,255,0.15);
+    --text: #f0f0f8; --muted: #888898;
+    --ard-color: #1a6bc4; --ard-glow: rgba(26,107,196,0.3);
+    --zdf-color: #e8002d; --zdf-glow: rgba(232,0,45,0.3);
+    --accent: #3d9aff; --green: #22c55e;
   }
-
   html { scroll-behavior: smooth; }
-
-  body {
-    background: var(--dark);
-    color: var(--text);
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
-
-  header {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    background: rgba(10,10,15,0.92);
-    backdrop-filter: blur(20px);
-    border-bottom: 1px solid var(--border);
-    padding: 0 2rem;
-    height: 64px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .header-brand {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 1.1rem;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-  }
-
+  body { background: var(--dark); color: var(--text); font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; min-height: 100vh; overflow-x: hidden; }
+  header { position: sticky; top: 0; z-index: 100; background: rgba(10,10,15,0.92); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); padding: 0 2rem; height: 64px; display: flex; align-items: center; justify-content: space-between; }
+  .header-brand { display: flex; align-items: center; gap: 10px; font-size: 1.1rem; font-weight: 700; letter-spacing: -0.02em; }
   .ball-icon { font-size: 1.4rem; animation: spin 8s linear infinite; }
   @keyframes spin { to { transform: rotate(360deg); } }
-
-  #live-clock {
-    font-size: 0.8rem;
-    color: var(--muted);
-    font-variant-numeric: tabular-nums;
-    letter-spacing: 0.05em;
-  }
-
-  .hero {
-    padding: 5rem 2rem 3rem;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .hero::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(61,154,255,0.08) 0%, transparent 70%);
-    pointer-events: none;
-  }
-
-  .hero-eyebrow {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    background: rgba(34,197,94,0.12);
-    border: 1px solid rgba(34,197,94,0.25);
-    color: var(--green);
-    font-size: 0.72rem;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    padding: 5px 14px;
-    border-radius: 100px;
-    margin-bottom: 1.5rem;
-  }
-
-  .live-dot {
-    width: 7px; height: 7px;
-    border-radius: 50%;
-    background: var(--green);
-    animation: pulse 1.5s ease-in-out infinite;
-  }
-  @keyframes pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.4; transform: scale(0.7); }
-  }
-
-  .hero h1 {
-    font-size: clamp(2.4rem, 6vw, 4.5rem);
-    font-weight: 800;
-    letter-spacing: -0.04em;
-    line-height: 1.05;
-    margin-bottom: 1rem;
-    background: linear-gradient(135deg, #ffffff 0%, #aab4cc 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .hero-sub {
-    color: var(--muted);
-    font-size: 1.05rem;
-    max-width: 480px;
-    margin: 0 auto 2.5rem;
-    line-height: 1.6;
-  }
-
-  .hero-actions {
-    display: flex;
-    gap: 12px;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-
-  .btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 12px 24px;
-    border-radius: 10px;
-    font-size: 0.92rem;
-    font-weight: 600;
-    cursor: pointer;
-    border: none;
-    transition: all 0.2s ease;
-    text-decoration: none;
-  }
-
+  #live-clock { font-size: 0.8rem; color: var(--muted); font-variant-numeric: tabular-nums; letter-spacing: 0.05em; }
+  .hero { padding: 5rem 2rem 3rem; text-align: center; position: relative; overflow: hidden; }
+  .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(61,154,255,0.08) 0%, transparent 70%); pointer-events: none; }
+  .hero-eyebrow { display: inline-flex; align-items: center; gap: 6px; background: rgba(34,197,94,0.12); border: 1px solid rgba(34,197,94,0.25); color: var(--green); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; padding: 5px 14px; border-radius: 100px; margin-bottom: 1.5rem; }
+  .live-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); animation: pulse 1.5s ease-in-out infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.7)} }
+  .hero-sub { color: var(--muted); font-size: 1.05rem; max-width: 480px; margin: 0 auto 2.5rem; line-height: 1.6; }
+  .hero-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; border-radius: 10px; font-size: 0.92rem; font-weight: 600; cursor: pointer; border: none; transition: all 0.2s ease; text-decoration: none; }
   .btn-primary { background: var(--accent); color: #fff; }
   .btn-primary:hover { background: #5aaeff; transform: translateY(-1px); }
   .btn-ghost { background: transparent; color: var(--muted); border: 1px solid var(--border); }
   .btn-ghost:hover { border-color: var(--border-hover); color: var(--text); }
-
-  .channels-section {
-    padding: 1rem 2rem 4rem;
-    max-width: 1100px;
-    margin: 0 auto;
-  }
-
-  .section-label {
-    font-size: 0.7rem;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 1.5rem;
-  }
-
-  .channels-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-  }
-
-  @media (max-width: 680px) {
-    .channels-grid { grid-template-columns: 1fr; }
-    header { padding: 0 1rem; }
-    .hero { padding: 3rem 1rem 2rem; }
-    .channels-section { padding: 1rem 1rem 3rem; }
-  }
-
-  .channel-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    overflow: hidden;
-    transition: border-color 0.25s, transform 0.25s;
-    cursor: pointer;
-  }
+  .channels-section { padding: 1rem 2rem 4rem; max-width: 1100px; margin: 0 auto; }
+  .section-label { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.5rem; }
+  .channels-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 680px) { .channels-grid { grid-template-columns: 1fr; } header { padding: 0 1rem; } .hero { padding: 3rem 1rem 2rem; } .channels-section { padding: 1rem 1rem 3rem; } }
+  .channel-card { background: var(--card); border: 1px solid var(--border); border-radius: 20px; overflow: hidden; transition: border-color 0.25s, transform 0.25s; cursor: pointer; }
   .channel-card:hover { border-color: var(--border-hover); transform: translateY(-2px); }
   .channel-card.ard { --ch-color: var(--ard-color); --ch-glow: var(--ard-glow); }
   .channel-card.zdf { --ch-color: var(--zdf-color); --ch-glow: var(--zdf-glow); }
-  .channel-card.active {
-    border-color: var(--ch-color);
-    box-shadow: 0 0 0 1px var(--ch-color), 0 8px 40px var(--ch-glow);
-  }
-
-  .video-wrap {
-    position: relative;
-    aspect-ratio: 16/9;
-    background: #08080f;
-    overflow: hidden;
-  }
-
-  .video-wrap video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
-
-  .video-overlay {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    background: rgba(0,0,0,0.55);
-    transition: opacity 0.3s;
-  }
+  .channel-card.active { border-color: var(--ch-color); box-shadow: 0 0 0 1px var(--ch-color), 0 8px 40px var(--ch-glow); }
+  .video-wrap { position: relative; aspect-ratio: 16/9; background: #08080f; overflow: hidden; }
+  .video-wrap video { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .video-overlay { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; background: rgba(0,0,0,0.55); transition: opacity 0.3s; }
   .video-overlay.hidden { opacity: 0; pointer-events: none; }
-
-  .play-btn {
-    width: 60px; height: 60px;
-    border-radius: 50%;
-    background: var(--ch-color);
-    border: none;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: transform 0.2s, box-shadow 0.2s;
-    box-shadow: 0 0 24px var(--ch-glow);
-  }
+  .play-btn { width: 60px; height: 60px; border-radius: 50%; background: var(--ch-color); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 0 24px var(--ch-glow); }
   .play-btn:hover { transform: scale(1.1); box-shadow: 0 0 36px var(--ch-glow); }
   .play-btn svg { width: 22px; height: 22px; fill: #fff; margin-left: 3px; }
-
-  .overlay-label {
-    font-size: 0.8rem;
-    color: rgba(255,255,255,0.7);
-    font-weight: 500;
-  }
-
-  .loader {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(0,0,0,0.7);
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.2s;
-  }
+  .overlay-label { font-size: 0.8rem; color: rgba(255,255,255,0.7); font-weight: 500; }
+  .loader { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.7); opacity: 0; pointer-events: none; transition: opacity 0.2s; }
   .loader.show { opacity: 1; }
-  .spinner {
-    width: 36px; height: 36px;
-    border: 3px solid rgba(255,255,255,0.1);
-    border-top-color: var(--ch-color);
-    border-radius: 50%;
-    animation: spin 0.8s linear infinite;
-  }
-
-  .channel-info {
-    padding: 16px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-  }
-
-  .channel-identity {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-  }
-
+  .spinner { width: 36px; height: 36px; border: 3px solid rgba(255,255,255,0.1); border-top-color: var(--ch-color); border-radius: 50%; animation: spin 0.8s linear infinite; }
+  .channel-info { padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .channel-identity { display: flex; align-items: center; gap: 14px; }
   .channel-logo { flex-shrink: 0; }
   .logo-ard { width: 52px; height: 52px; }
   .logo-zdf { width: 52px; height: 36px; }
-
   .ch-name { font-size: 1rem; font-weight: 700; letter-spacing: -0.02em; }
   .ch-desc { font-size: 0.78rem; color: var(--muted); margin-top: 2px; }
-
-  .ch-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    padding: 4px 10px;
-    border-radius: 6px;
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    flex-shrink: 0;
-  }
-
-  .badge-live {
-    background: rgba(34,197,94,0.12);
-    border: 1px solid rgba(34,197,94,0.25);
-    color: var(--green);
-  }
-
-  .badge-dot {
-    width: 5px; height: 5px;
-    border-radius: 50%;
-    background: currentColor;
-    animation: pulse 1.5s infinite;
-  }
-
-  .controls {
-    padding: 0 20px 12px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .ctrl-btn {
-    background: var(--dark3);
-    border: 1px solid var(--border);
-    color: var(--muted);
-    width: 36px; height: 36px;
-    border-radius: 8px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.15s;
-    flex-shrink: 0;
-  }
+  .ch-badge { display: inline-flex; align-items: center; gap: 5px; padding: 4px 10px; border-radius: 6px; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; flex-shrink: 0; }
+  .badge-live { background: rgba(34,197,94,0.12); border: 1px solid rgba(34,197,94,0.25); color: var(--green); }
+  .badge-dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; animation: pulse 1.5s infinite; }
+  .controls { padding: 0 20px 12px; display: flex; align-items: center; gap: 10px; }
+  .ctrl-btn { background: var(--dark3); border: 1px solid var(--border); color: var(--muted); width: 36px; height: 36px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.15s; flex-shrink: 0; }
   .ctrl-btn:hover { background: var(--border); color: var(--text); }
   .ctrl-btn svg { width: 16px; height: 16px; fill: currentColor; }
-
-  .volume-slider {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 80px;
-    height: 4px;
-    background: var(--dark3);
-    border-radius: 2px;
-    outline: none;
-    cursor: pointer;
-  }
-  .volume-slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 14px; height: 14px;
-    border-radius: 50%;
-    background: var(--ch-color);
-    cursor: pointer;
-  }
-
+  .volume-slider { -webkit-appearance: none; appearance: none; width: 80px; height: 4px; background: var(--dark3); border-radius: 2px; outline: none; cursor: pointer; }
+  .volume-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%; background: var(--ch-color); cursor: pointer; }
   .ctrl-spacer { flex: 1; }
   .fullscreen-btn { margin-left: auto; }
-
-  /* ── STREAM LINKS ── */
-  .stream-links {
-    padding: 10px 16px 14px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    border-top: 1px solid var(--border);
-  }
-
-  .stream-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 6px 12px;
-    border-radius: 8px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-decoration: none;
-    border: 1px solid var(--border);
-    color: var(--muted);
-    background: var(--dark3);
-    transition: all 0.15s;
-    letter-spacing: 0.02em;
-    font-family: inherit;
-    cursor: pointer;
-  }
-  .stream-link:hover {
-    border-color: var(--ch-color);
-    color: var(--text);
-    background: rgba(255,255,255,0.05);
-  }
+  .stream-links { padding: 10px 16px 14px; display: flex; flex-wrap: wrap; gap: 8px; border-top: 1px solid var(--border); }
+  .stream-link { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 8px; font-size: 0.75rem; font-weight: 600; text-decoration: none; border: 1px solid var(--border); color: var(--muted); background: var(--dark3); transition: all 0.15s; letter-spacing: 0.02em; font-family: inherit; cursor: pointer; }
+  .stream-link:hover { border-color: var(--ch-color); color: var(--text); background: rgba(255,255,255,0.05); }
   .stream-link svg { width: 13px; height: 13px; fill: currentColor; flex-shrink: 0; }
+  .link-label { font-size: 0.65rem; color: var(--muted); opacity: 0.6; align-self: center; white-space: nowrap; padding: 0 2px; }
 
-  .link-label {
-    font-size: 0.65rem;
-    color: var(--muted);
-    opacity: 0.6;
-    align-self: center;
-    white-space: nowrap;
-    padding: 0 2px;
-  }
+  /* PS4 info banner */
+  .ps4-banner { display: none; margin: 0 16px 12px; padding: 10px 14px; background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.2); border-radius: 10px; font-size: 0.75rem; color: #f59e0b; line-height: 1.5; }
+  .ps4-banner b { font-weight: 700; }
 
-  footer {
-    border-top: 1px solid var(--border);
-    padding: 2rem;
-    text-align: center;
-    color: var(--muted);
-    font-size: 0.78rem;
-  }
+  footer { border-top: 1px solid var(--border); padding: 2rem; text-align: center; color: var(--muted); font-size: 0.78rem; }
   footer a { color: inherit; text-decoration: underline; opacity: 0.7; }
 </style>
 </head>
@@ -422,10 +97,7 @@
 </header>
 
 <section class="hero">
-  <div class="hero-eyebrow">
-    <span class="live-dot"></span>
-    Livestream aktiv
-  </div>
+  <div class="hero-eyebrow"><span class="live-dot"></span>Livestream aktiv</div>
   <p class="hero-sub">ARD Das Erste und ZDF direkt — kein Login, keine App. Einfach auf Play drücken und genießen.</p>
   <div class="hero-actions">
     <button class="btn btn-primary" onclick="startAll()">▶ Alle starten</button>
@@ -437,19 +109,20 @@
   <div class="section-label">Kanäle</div>
   <div class="channels-grid">
 
-    <!-- ARD DAS ERSTE -->
+    <!-- ARD -->
     <div class="channel-card ard" id="card-ard">
       <div class="video-wrap" id="wrap-ard">
-        <video id="vid-ard" playsinline webkit-playsinline x-webkit-airplay="allow"></video>
+        <video id="vid-ard" playsinline webkit-playsinline></video>
         <div class="video-overlay" id="overlay-ard">
           <button class="play-btn" onclick="startStream('ard')">
             <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
           </button>
           <span class="overlay-label">Das Erste starten</span>
         </div>
-        <div class="loader" id="loader-ard">
-          <div class="spinner"></div>
-        </div>
+        <div class="loader" id="loader-ard"><div class="spinner"></div></div>
+      </div>
+      <div class="ps4-banner" id="ps4-banner-ard">
+        <b>PS4:</b> Если нет звука — нажми 🔊 ниже. Если зависает — используй кнопку «Открыть m3u8» внизу.
       </div>
       <div class="channel-info">
         <div class="channel-identity">
@@ -467,9 +140,7 @@
             <div class="ch-desc">ARD Erstes Deutsches Fernsehen</div>
           </div>
         </div>
-        <div class="ch-badge badge-live">
-          <span class="badge-dot"></span>Live
-        </div>
+        <div class="ch-badge badge-live"><span class="badge-dot"></span>Live</div>
       </div>
       <div class="controls">
         <button class="ctrl-btn" id="playpause-ard" onclick="togglePlay('ard')" title="Play / Pause">
@@ -478,39 +149,39 @@
         <button class="ctrl-btn" id="mute-ard" onclick="toggleMute('ard')" title="Ton an/aus">
           <svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
         </button>
-        <input type="range" class="volume-slider" id="vol-ard" min="0" max="1" step="0.05" value="1"
-               oninput="setVolume('ard', this.value)" style="--ch-color: var(--ard-color)">
+        <input type="range" class="volume-slider" id="vol-ard" min="0" max="1" step="0.05" value="1" oninput="setVolume('ard', this.value)" style="--ch-color: var(--ard-color)">
         <span class="ctrl-spacer"></span>
         <button class="ctrl-btn fullscreen-btn" onclick="goFullscreen('ard')" title="Vollbild">
           <svg viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
         </button>
       </div>
       <div class="stream-links" style="--ch-color: var(--ard-color)">
-        <span class="link-label">Playlist:</span>
-        <a class="stream-link" href="https://daserste-live.ard-mcdn.de/daserste/live/hls/de/master.m3u8" target="_blank" rel="noopener">
+        <span class="link-label">Плейлист:</span>
+        <a class="stream-link" id="open-ard" href="https://daserste-live.ard-mcdn.de/daserste/live/hls/de/master.m3u8" target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
-          Offnen m3u8
+          Открыть m3u8
         </a>
-        <!-- <button class="stream-link" onclick="copyUrl('ard')" id="copy-ard">
+        <button class="stream-link" onclick="copyUrl('ard')" id="copy-ard">
           <svg viewBox="0 0 24 24"><path d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12V1zm3 4H8a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2zm0 16H8V7h11v14z"/></svg>
           Копировать ссылку
-        </button> -->
+        </button>
       </div>
     </div>
 
     <!-- ZDF -->
     <div class="channel-card zdf" id="card-zdf">
       <div class="video-wrap" id="wrap-zdf">
-        <video id="vid-zdf" playsinline webkit-playsinline x-webkit-airplay="allow"></video>
+        <video id="vid-zdf" playsinline webkit-playsinline></video>
         <div class="video-overlay" id="overlay-zdf">
           <button class="play-btn" onclick="startStream('zdf')">
             <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
           </button>
           <span class="overlay-label">ZDF starten</span>
         </div>
-        <div class="loader" id="loader-zdf">
-          <div class="spinner"></div>
-        </div>
+        <div class="loader" id="loader-zdf"><div class="spinner"></div></div>
+      </div>
+      <div class="ps4-banner" id="ps4-banner-zdf">
+        <b>PS4:</b> Если нет звука — нажми 🔊 ниже. Если зависает — используй кнопку «Открыть m3u8» внизу.
       </div>
       <div class="channel-info">
         <div class="channel-identity">
@@ -525,9 +196,7 @@
             <div class="ch-desc">Zweites Deutsches Fernsehen</div>
           </div>
         </div>
-        <div class="ch-badge badge-live">
-          <span class="badge-dot"></span>Live
-        </div>
+        <div class="ch-badge badge-live"><span class="badge-dot"></span>Live</div>
       </div>
       <div class="controls">
         <button class="ctrl-btn" id="playpause-zdf" onclick="togglePlay('zdf')" title="Play / Pause">
@@ -536,23 +205,22 @@
         <button class="ctrl-btn" id="mute-zdf" onclick="toggleMute('zdf')" title="Ton an/aus">
           <svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
         </button>
-        <input type="range" class="volume-slider" id="vol-zdf" min="0" max="1" step="0.05" value="1"
-               oninput="setVolume('zdf', this.value)" style="--ch-color: var(--zdf-color)">
+        <input type="range" class="volume-slider" id="vol-zdf" min="0" max="1" step="0.05" value="1" oninput="setVolume('zdf', this.value)" style="--ch-color: var(--zdf-color)">
         <span class="ctrl-spacer"></span>
         <button class="ctrl-btn fullscreen-btn" onclick="goFullscreen('zdf')" title="Vollbild">
           <svg viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
         </button>
       </div>
       <div class="stream-links" style="--ch-color: var(--zdf-color)">
-        <span class="link-label">Playlist:</span>
-        <a class="stream-link" href="https://zdf-hls-15.akamaized.net/hls/live/2016498/de/veryhigh/master.m3u8" target="_blank" rel="noopener">
+        <span class="link-label">Плейлист:</span>
+        <a class="stream-link" id="open-zdf" href="https://zdf-hls-15.akamaized.net/hls/live/2016498/de/veryhigh/master.m3u8" target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
-          Offnen m3u8
+          Открыть m3u8
         </a>
-        <!-- <button class="stream-link" onclick="copyUrl('zdf')" id="copy-zdf">
+        <button class="stream-link" onclick="copyUrl('zdf')" id="copy-zdf">
           <svg viewBox="0 0 24 24"><path d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12V1zm3 4H8a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2zm0 16H8V7h11v14z"/></svg>
           Копировать ссылку
-        </button> -->
+        </button>
       </div>
     </div>
 
@@ -564,21 +232,38 @@
 </footer>
 
 <script>
-// ── Detect PS4 browser (old WebKit) ──────────────────────────────────────
-const isPS4 = /PlayStation 4/.test(navigator.userAgent);
-const isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
+// ── Device detection ────────────────────────────────────────────────────────
+const ua = navigator.userAgent;
+const isPS4 = /PlayStation 4/i.test(ua);
+const isIOS = /iPhone|iPad|iPod/i.test(ua);
 
+// ── Stream URLs ─────────────────────────────────────────────────────────────
+// PS4: используем Akamai CDN URL для ARD — он имеет аудио встроенное в .ts сегменты
+// (без отдельного EXT-X-MEDIA audio track, который PS4 не умеет мёрджить)
+// и низкий битрейт чтобы не зависало
+// ZDF: для PS4 берём /high/ вместо /veryhigh/ — меньше нагрузки
 const STREAMS = {
-  // ARD: на PS4 используем низкий битрейт чтобы не зависало
   ard: isPS4
-    ? 'https://daserste-live.ard-mcdn.de/daserste/live/hls/de/low/master.m3u8'
+    ? 'https://derste247livede.akamaized.net/hls/live/658317/daserste_de/master.m3u8'
     : 'https://daserste-live.ard-mcdn.de/daserste/live/hls/de/master.m3u8',
-  zdf: 'https://zdf-hls-15.akamaized.net/hls/live/2016498/de/veryhigh/master.m3u8'
+  zdf: isPS4
+    ? 'https://zdf-hls-15.akamaized.net/hls/live/2016498/de/high/master.m3u8'
+    : 'https://zdf-hls-15.akamaized.net/hls/live/2016498/de/veryhigh/master.m3u8'
 };
+
+// Ссылки в блоке "Плейлист" тоже обновляем под PS4
+if (isPS4) {
+  document.getElementById('open-ard').href = STREAMS.ard;
+  document.getElementById('open-zdf').href = STREAMS.zdf;
+  // Показываем баннеры-подсказки для PS4
+  document.getElementById('ps4-banner-ard').style.display = 'block';
+  document.getElementById('ps4-banner-zdf').style.display = 'block';
+}
 
 const hlsMap = {};
 const state = { ard: 'idle', zdf: 'idle' };
 
+// ── startStream ─────────────────────────────────────────────────────────────
 function startStream(ch) {
   const vid = document.getElementById('vid-' + ch);
   const overlay = document.getElementById('overlay-' + ch);
@@ -589,73 +274,62 @@ function startStream(ch) {
   loader.classList.add('show');
   card.classList.add('active');
 
-  // ── iOS Safari: нативный HLS через src ──────────────────────────────
+  // Всегда начинаем со звуком (пользователь только что нажал — это user gesture)
+  vid.muted = false;
+  vid.volume = parseFloat(document.getElementById('vol-' + ch).value);
+  // На PS4 включаем родные controls как запасной вариант управления
+  if (isPS4) vid.controls = true;
+
+  // ── iOS Safari: нативный HLS ───────────────────────────────────────────
   if (isIOS) {
     vid.src = STREAMS[ch];
     vid.load();
-    // Звук: iOS требует явного взаимодействия пользователя — играем без muted
-    vid.muted = false;
-    vid.volume = 1;
     vid.play()
-      .then(() => {
-        loader.classList.remove('show');
-        state[ch] = 'playing';
-        updatePlayBtn(ch);
-      })
+      .then(() => { loader.classList.remove('show'); state[ch] = 'playing'; updatePlayBtn(ch); })
+      .catch(() => { loader.classList.remove('show'); overlay.classList.remove('hidden'); overlay.querySelector('.overlay-label').textContent = '▶ Nochmal drücken'; card.classList.remove('active'); });
+    return;
+  }
+
+  // ── PS4 и браузеры с нативным HLS (без MSE) ───────────────────────────
+  if (isPS4 || !Hls.isSupported()) {
+    if (hlsMap[ch]) { hlsMap[ch].destroy(); hlsMap[ch] = null; }
+    vid.src = STREAMS[ch];
+    vid.load();
+    vid.play()
+      .then(() => { loader.classList.remove('show'); state[ch] = 'playing'; updatePlayBtn(ch); })
       .catch(() => {
-        // Если автозапуск заблокирован — убираем лоадер, показываем оверлей
-        loader.classList.remove('show');
-        overlay.classList.remove('hidden');
-        overlay.querySelector('.overlay-label').textContent = '▶ Нажми для запуска';
-        card.classList.remove('active');
+        // PS4 иногда требует второй попытки после load()
+        setTimeout(() => {
+          vid.play()
+            .then(() => { loader.classList.remove('show'); state[ch] = 'playing'; updatePlayBtn(ch); })
+            .catch(() => { loader.classList.remove('show'); overlay.classList.remove('hidden'); overlay.querySelector('.overlay-label').textContent = '▶ Play nochmal drücken'; card.classList.remove('active'); });
+        }, 500);
       });
     return;
   }
 
-  // ── PS4 / старые браузеры: нативный HLS без HLS.js воркера ──────────
-  if (isPS4 || !Hls.isSupported()) {
-    if (vid.canPlayType('application/vnd.apple.mpegurl') ||
-        vid.canPlayType('application/x-mpegURL')) {
-      vid.src = STREAMS[ch];
-      vid.muted = false;
-      vid.volume = 1;
-      vid.load();
-      vid.play().catch(() => {});
-      loader.classList.remove('show');
-      state[ch] = 'playing';
-      updatePlayBtn(ch);
-    } else {
-      loader.classList.remove('show');
-      overlay.classList.remove('hidden');
-      overlay.querySelector('.overlay-label').textContent = 'HLS nicht unterstützt';
-    }
-    return;
-  }
-
-  // ── Обычные браузеры: HLS.js ─────────────────────────────────────────
-  if (hlsMap[ch]) { hlsMap[ch].destroy(); }
+  // ── HLS.js (Chrome, Firefox, Edge) ────────────────────────────────────
+  if (hlsMap[ch]) hlsMap[ch].destroy();
 
   hlsMap[ch] = new Hls({
     enableWorker: true,
     lowLatencyMode: false,
-    // Ограничиваем буфер чтобы не зависало на слабых устройствах
     maxBufferLength: 30,
     maxMaxBufferLength: 60,
-    startLevel: -1  // авто-качество
+    startLevel: -1
   });
 
   hlsMap[ch].loadSource(STREAMS[ch]);
   hlsMap[ch].attachMedia(vid);
 
   hlsMap[ch].on(Hls.Events.MANIFEST_PARSED, () => {
-    // Звук: включаем явно после клика пользователя
     vid.muted = false;
     vid.volume = parseFloat(document.getElementById('vol-' + ch).value);
     vid.play().catch(() => {
-      // Браузер не дал — запускаем muted, потом пользователь сам включит звук
+      // Браузер заблокировал автозапуск — запускаем muted, подсвечиваем кнопку звука
       vid.muted = true;
       vid.play().catch(() => {});
-      showUnmuteHint(ch);
+      highlightMuteBtn(ch);
     });
     loader.classList.remove('show');
     state[ch] = 'playing';
@@ -673,44 +347,44 @@ function startStream(ch) {
   });
 }
 
-// Подсказка "нажми чтобы включить звук" если autoplay заблокирован
-function showUnmuteHint(ch) {
+// Подсвечиваем кнопку mute — сигнал что звук надо включить вручную
+function highlightMuteBtn(ch) {
   const btn = document.getElementById('mute-' + ch);
   btn.style.color = '#f59e0b';
-  btn.title = 'Нажми — включить звук';
+  btn.style.borderColor = '#f59e0b';
+  btn.title = '⚠ Нажми — включить звук';
 }
 
+// ── togglePlay ───────────────────────────────────────────────────────────────
 function togglePlay(ch) {
   const vid = document.getElementById('vid-' + ch);
   if (state[ch] === 'idle') { startStream(ch); return; }
-  if (vid.paused) {
-    vid.play();
-    state[ch] = 'playing';
-  } else {
-    vid.pause();
-    state[ch] = 'paused';
-  }
+  if (vid.paused) { vid.play(); state[ch] = 'playing'; }
+  else { vid.pause(); state[ch] = 'paused'; }
   updatePlayBtn(ch);
 }
 
 function updatePlayBtn(ch) {
   const btn = document.getElementById('playpause-' + ch);
   const vid = document.getElementById('vid-' + ch);
-  const isPlaying = state[ch] === 'playing' && !vid.paused;
-  btn.innerHTML = isPlaying
+  const playing = state[ch] === 'playing' && !vid.paused;
+  btn.innerHTML = playing
     ? '<svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>'
     : '<svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:currentColor"><path d="M8 5v14l11-7z"/></svg>';
 }
 
+// ── toggleMute ───────────────────────────────────────────────────────────────
+const ICON_SOUND = '<svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:currentColor"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>';
+const ICON_MUTE  = '<svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:currentColor"><path d="M16.5 12A4.5 4.5 0 0 0 14 7.97v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51A8.8 8.8 0 0 0 21 12c0-4.28-3-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06A9 9 0 0 0 17.73 19L19 20.27 20.27 19 5.27 4 4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>';
+
 function toggleMute(ch) {
   const vid = document.getElementById('vid-' + ch);
-  vid.muted = !vid.muted;
   const btn = document.getElementById('mute-' + ch);
+  vid.muted = !vid.muted;
+  btn.innerHTML = vid.muted ? ICON_MUTE : ICON_SOUND;
   btn.style.color = '';
-  // Обновить иконку
-  btn.innerHTML = vid.muted
-    ? '<svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:currentColor"><path d="M16.5 12A4.5 4.5 0 0 0 14 7.97v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51A8.8 8.8 0 0 0 21 12c0-4.28-3-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06A9 9 0 0 0 17.73 19L19 20.27 20.27 19 5.27 4 4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>'
-    : '<svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:currentColor"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>';
+  btn.style.borderColor = '';
+  btn.title = vid.muted ? 'Stumm' : 'Ton an/aus';
 }
 
 function setVolume(ch, val) {
@@ -718,31 +392,23 @@ function setVolume(ch, val) {
   vid.volume = parseFloat(val);
   if (parseFloat(val) > 0 && vid.muted) {
     vid.muted = false;
-    document.getElementById('mute-' + ch).innerHTML =
-      '<svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:currentColor"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>';
+    document.getElementById('mute-' + ch).innerHTML = ICON_SOUND;
   }
 }
 
+// ── Fullscreen ────────────────────────────────────────────────────────────────
 function goFullscreen(ch) {
   const vid = document.getElementById('vid-' + ch);
   const wrap = document.getElementById('wrap-' + ch);
-
-  // iOS Safari: только webkitEnterFullscreen на самом <video>
-  if (isIOS) {
-    if (vid.webkitEnterFullscreen) {
-      vid.webkitEnterFullscreen();
-    }
-    return;
+  // iOS Safari и PS4: только через video элемент
+  if (isIOS || isPS4) {
+    if (vid.webkitEnterFullscreen) { vid.webkitEnterFullscreen(); return; }
   }
-
-  // Все остальные
-  const el = wrap;
-  if (el.requestFullscreen)            { el.requestFullscreen(); }
-  else if (el.webkitRequestFullscreen) { el.webkitRequestFullscreen(); }
-  else if (el.mozRequestFullScreen)    { el.mozRequestFullScreen(); }
-  else if (el.msRequestFullscreen)     { el.msRequestFullscreen(); }
-  // Крайний случай — пробуем на video элементе
-  else if (vid.webkitEnterFullscreen)  { vid.webkitEnterFullscreen(); }
+  // Стандарт
+  if      (wrap.requestFullscreen)            wrap.requestFullscreen();
+  else if (wrap.webkitRequestFullscreen)      wrap.webkitRequestFullscreen();
+  else if (wrap.mozRequestFullScreen)         wrap.mozRequestFullScreen();
+  else if (vid.webkitEnterFullscreen)         vid.webkitEnterFullscreen();
 }
 
 function startAll() {
@@ -756,12 +422,9 @@ function copyUrl(ch) {
   const orig = btn.innerHTML;
   const ok = '<svg viewBox="0 0 24 24" style="width:13px;height:13px;fill:currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> Скопировано!';
   if (navigator.clipboard) {
-    navigator.clipboard.writeText(url).then(() => {
-      btn.innerHTML = ok;
-      setTimeout(() => { btn.innerHTML = orig; }, 2000);
-    }).catch(() => { prompt('Скопируй ссылку:', url); });
+    navigator.clipboard.writeText(url).then(() => { btn.innerHTML = ok; setTimeout(() => btn.innerHTML = orig, 2000); }).catch(() => prompt('Скопируй:', url));
   } else {
-    prompt('Скопируй ссылку:', url);
+    prompt('Скопируй:', url);
   }
 }
 
@@ -774,16 +437,21 @@ document.addEventListener('keydown', e => {
   }
 });
 
+// vid события
+['ard','zdf'].forEach(ch => {
+  const vid = document.getElementById('vid-' + ch);
+  vid.addEventListener('play',  () => { state[ch] = 'playing'; updatePlayBtn(ch); });
+  vid.addEventListener('pause', () => { if (state[ch] !== 'idle') state[ch] = 'paused'; updatePlayBtn(ch); });
+});
+
 // Clock
 function tick() {
-  const now = new Date();
-  const pad = n => String(n).padStart(2, '0');
-  const days = ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'];
+  const now = new Date(), pad = n => String(n).padStart(2,'0');
+  const days = ['So','Mo','Di','Mi','Do','Fr','Sa'];
   document.getElementById('live-clock').textContent =
     `${days[now.getDay()]} ${pad(now.getDate())}.${pad(now.getMonth()+1)} · ${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
 }
-tick();
-setInterval(tick, 1000);
+tick(); setInterval(tick, 1000);
 </script>
 </body>
 </html>
