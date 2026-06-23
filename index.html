@@ -35,7 +35,6 @@
     overflow-x: hidden;
   }
 
-  /* ── HEADER ── */
   header {
     position: sticky;
     top: 0;
@@ -59,10 +58,7 @@
     letter-spacing: -0.02em;
   }
 
-  .ball-icon {
-    font-size: 1.4rem;
-    animation: spin 8s linear infinite;
-  }
+  .ball-icon { font-size: 1.4rem; animation: spin 8s linear infinite; }
   @keyframes spin { to { transform: rotate(360deg); } }
 
   #live-clock {
@@ -72,7 +68,6 @@
     letter-spacing: 0.05em;
   }
 
-  /* ── HERO ── */
   .hero {
     padding: 5rem 2rem 3rem;
     text-align: center;
@@ -105,8 +100,7 @@
   }
 
   .live-dot {
-    width: 7px;
-    height: 7px;
+    width: 7px; height: 7px;
     border-radius: 50%;
     background: var(--green);
     animation: pulse 1.5s ease-in-out infinite;
@@ -157,20 +151,11 @@
     text-decoration: none;
   }
 
-  .btn-primary {
-    background: var(--accent);
-    color: #fff;
-  }
+  .btn-primary { background: var(--accent); color: #fff; }
   .btn-primary:hover { background: #5aaeff; transform: translateY(-1px); }
-
-  .btn-ghost {
-    background: transparent;
-    color: var(--muted);
-    border: 1px solid var(--border);
-  }
+  .btn-ghost { background: transparent; color: var(--muted); border: 1px solid var(--border); }
   .btn-ghost:hover { border-color: var(--border-hover); color: var(--text); }
 
-  /* ── CHANNELS GRID ── */
   .channels-section {
     padding: 1rem 2rem 4rem;
     max-width: 1100px;
@@ -199,7 +184,6 @@
     .channels-section { padding: 1rem 1rem 3rem; }
   }
 
-  /* ── CHANNEL CARD ── */
   .channel-card {
     background: var(--card);
     border: 1px solid var(--border);
@@ -209,16 +193,13 @@
     cursor: pointer;
   }
   .channel-card:hover { border-color: var(--border-hover); transform: translateY(-2px); }
-
   .channel-card.ard { --ch-color: var(--ard-color); --ch-glow: var(--ard-glow); }
   .channel-card.zdf { --ch-color: var(--zdf-color); --ch-glow: var(--zdf-glow); }
-
   .channel-card.active {
     border-color: var(--ch-color);
     box-shadow: 0 0 0 1px var(--ch-color), 0 8px 40px var(--ch-glow);
   }
 
-  /* video container */
   .video-wrap {
     position: relative;
     aspect-ratio: 16/9;
@@ -244,12 +225,10 @@
     background: rgba(0,0,0,0.55);
     transition: opacity 0.3s;
   }
-
   .video-overlay.hidden { opacity: 0; pointer-events: none; }
 
   .play-btn {
-    width: 60px;
-    height: 60px;
+    width: 60px; height: 60px;
     border-radius: 50%;
     background: var(--ch-color);
     border: none;
@@ -261,7 +240,6 @@
     box-shadow: 0 0 24px var(--ch-glow);
   }
   .play-btn:hover { transform: scale(1.1); box-shadow: 0 0 36px var(--ch-glow); }
-
   .play-btn svg { width: 22px; height: 22px; fill: #fff; margin-left: 3px; }
 
   .overlay-label {
@@ -270,7 +248,6 @@
     font-weight: 500;
   }
 
-  /* loading spinner */
   .loader {
     position: absolute;
     inset: 0;
@@ -291,7 +268,6 @@
     animation: spin 0.8s linear infinite;
   }
 
-  /* ── CHANNEL INFO BAR ── */
   .channel-info {
     padding: 16px 20px;
     display: flex;
@@ -306,26 +282,12 @@
     gap: 14px;
   }
 
-  .channel-logo {
-    flex-shrink: 0;
-  }
-
-  /* ARD Logo SVG */
+  .channel-logo { flex-shrink: 0; }
   .logo-ard { width: 52px; height: 52px; }
-  /* ZDF Logo SVG */
   .logo-zdf { width: 52px; height: 36px; }
 
-  .ch-name {
-    font-size: 1rem;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-  }
-
-  .ch-desc {
-    font-size: 0.78rem;
-    color: var(--muted);
-    margin-top: 2px;
-  }
+  .ch-name { font-size: 1rem; font-weight: 700; letter-spacing: -0.02em; }
+  .ch-desc { font-size: 0.78rem; color: var(--muted); margin-top: 2px; }
 
   .ch-badge {
     display: inline-flex;
@@ -353,9 +315,8 @@
     animation: pulse 1.5s infinite;
   }
 
-  /* ── CONTROLS ── */
   .controls {
-    padding: 0 20px 16px;
+    padding: 0 20px 12px;
     display: flex;
     align-items: center;
     gap: 10px;
@@ -365,8 +326,7 @@
     background: var(--dark3);
     border: 1px solid var(--border);
     color: var(--muted);
-    width: 36px;
-    height: 36px;
+    width: 36px; height: 36px;
     border-radius: 8px;
     cursor: pointer;
     display: flex;
@@ -397,46 +357,50 @@
   }
 
   .ctrl-spacer { flex: 1; }
+  .fullscreen-btn { margin-left: auto; }
 
-  .fullscreen-btn {
-    margin-left: auto;
+  /* ── STREAM LINKS ── */
+  .stream-links {
+    padding: 10px 16px 14px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    border-top: 1px solid var(--border);
   }
 
-  /* ── INFO SECTION ── */
-  .info-section {
-    padding: 2rem 2rem 4rem;
-    max-width: 1100px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 16px;
-  }
-
-  .info-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 20px;
-  }
-
-  .info-icon {
-    font-size: 1.5rem;
-    margin-bottom: 10px;
-  }
-
-  .info-title {
-    font-size: 0.85rem;
+  .stream-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 0.75rem;
     font-weight: 600;
-    margin-bottom: 4px;
-  }
-
-  .info-text {
-    font-size: 0.78rem;
+    text-decoration: none;
+    border: 1px solid var(--border);
     color: var(--muted);
-    line-height: 1.5;
+    background: var(--dark3);
+    transition: all 0.15s;
+    letter-spacing: 0.02em;
+    font-family: inherit;
+    cursor: pointer;
+  }
+  .stream-link:hover {
+    border-color: var(--ch-color);
+    color: var(--text);
+    background: rgba(255,255,255,0.05);
+  }
+  .stream-link svg { width: 13px; height: 13px; fill: currentColor; flex-shrink: 0; }
+
+  .link-label {
+    font-size: 0.65rem;
+    color: var(--muted);
+    opacity: 0.6;
+    align-self: center;
+    white-space: nowrap;
+    padding: 0 2px;
   }
 
-  /* ── FOOTER ── */
   footer {
     border-top: 1px solid var(--border);
     padding: 2rem;
@@ -444,7 +408,6 @@
     color: var(--muted);
     font-size: 0.78rem;
   }
-
   footer a { color: inherit; text-decoration: underline; opacity: 0.7; }
 </style>
 </head>
@@ -463,7 +426,6 @@
     <span class="live-dot"></span>
     Livestream aktiv
   </div>
-  <!-- <h1>Fußball live<br>im Browser</h1> -->
   <p class="hero-sub">ARD Das Erste und ZDF direkt — kein Login, keine App. Einfach auf Play drücken und genießen.</p>
   <div class="hero-actions">
     <button class="btn btn-primary" onclick="startAll()">▶ Alle starten</button>
@@ -478,7 +440,7 @@
     <!-- ARD DAS ERSTE -->
     <div class="channel-card ard" id="card-ard">
       <div class="video-wrap" id="wrap-ard">
-        <video id="vid-ard" playsinline></video>
+        <video id="vid-ard" playsinline webkit-playsinline x-webkit-airplay="allow"></video>
         <div class="video-overlay" id="overlay-ard">
           <button class="play-btn" onclick="startStream('ard')">
             <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
@@ -491,7 +453,6 @@
       </div>
       <div class="channel-info">
         <div class="channel-identity">
-          <!-- ARD / Das Erste Logo -->
           <div class="channel-logo">
             <svg class="logo-ard" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
               <rect width="200" height="200" rx="28" fill="#1a6bc4"/>
@@ -514,21 +475,33 @@
         <button class="ctrl-btn" id="playpause-ard" onclick="togglePlay('ard')" title="Play / Pause">
           <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
         </button>
-        <button class="ctrl-btn" onclick="toggleMute('ard')" title="Ton an/aus">
+        <button class="ctrl-btn" id="mute-ard" onclick="toggleMute('ard')" title="Ton an/aus">
           <svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
         </button>
-        <input type="range" class="volume-slider" min="0" max="1" step="0.05" value="1" oninput="setVolume('ard', this.value)" style="--ch-color: var(--ard-color)">
+        <input type="range" class="volume-slider" id="vol-ard" min="0" max="1" step="0.05" value="1"
+               oninput="setVolume('ard', this.value)" style="--ch-color: var(--ard-color)">
         <span class="ctrl-spacer"></span>
         <button class="ctrl-btn fullscreen-btn" onclick="goFullscreen('ard')" title="Vollbild">
           <svg viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
         </button>
+      </div>
+      <div class="stream-links" style="--ch-color: var(--ard-color)">
+        <span class="link-label">Playlist:</span>
+        <a class="stream-link" href="https://daserste-live.ard-mcdn.de/daserste/live/hls/de/master.m3u8" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+          Offnen m3u8
+        </a>
+        <!-- <button class="stream-link" onclick="copyUrl('ard')" id="copy-ard">
+          <svg viewBox="0 0 24 24"><path d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12V1zm3 4H8a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2zm0 16H8V7h11v14z"/></svg>
+          Копировать ссылку
+        </button> -->
       </div>
     </div>
 
     <!-- ZDF -->
     <div class="channel-card zdf" id="card-zdf">
       <div class="video-wrap" id="wrap-zdf">
-        <video id="vid-zdf" playsinline></video>
+        <video id="vid-zdf" playsinline webkit-playsinline x-webkit-airplay="allow"></video>
         <div class="video-overlay" id="overlay-zdf">
           <button class="play-btn" onclick="startStream('zdf')">
             <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
@@ -541,7 +514,6 @@
       </div>
       <div class="channel-info">
         <div class="channel-identity">
-          <!-- ZDF Logo -->
           <div class="channel-logo">
             <svg class="logo-zdf" viewBox="0 0 160 80" xmlns="http://www.w3.org/2000/svg">
               <rect width="160" height="80" rx="10" fill="#e8002d"/>
@@ -561,54 +533,50 @@
         <button class="ctrl-btn" id="playpause-zdf" onclick="togglePlay('zdf')" title="Play / Pause">
           <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
         </button>
-        <button class="ctrl-btn" onclick="toggleMute('zdf')" title="Ton an/aus">
+        <button class="ctrl-btn" id="mute-zdf" onclick="toggleMute('zdf')" title="Ton an/aus">
           <svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
         </button>
-        <input type="range" class="volume-slider" min="0" max="1" step="0.05" value="1" oninput="setVolume('zdf', this.value)" style="--ch-color: var(--zdf-color)">
+        <input type="range" class="volume-slider" id="vol-zdf" min="0" max="1" step="0.05" value="1"
+               oninput="setVolume('zdf', this.value)" style="--ch-color: var(--zdf-color)">
         <span class="ctrl-spacer"></span>
         <button class="ctrl-btn fullscreen-btn" onclick="goFullscreen('zdf')" title="Vollbild">
           <svg viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
         </button>
+      </div>
+      <div class="stream-links" style="--ch-color: var(--zdf-color)">
+        <span class="link-label">Playlist:</span>
+        <a class="stream-link" href="https://zdf-hls-15.akamaized.net/hls/live/2016498/de/veryhigh/master.m3u8" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+          Offnen m3u8
+        </a>
+        <!-- <button class="stream-link" onclick="copyUrl('zdf')" id="copy-zdf">
+          <svg viewBox="0 0 24 24"><path d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12V1zm3 4H8a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2zm0 16H8V7h11v14z"/></svg>
+          Копировать ссылку
+        </button> -->
       </div>
     </div>
 
   </div>
 </section>
 
-<!-- <section class="info-section">
-  <div class="info-card">
-    <div class="info-icon">🔴</div>
-    <div class="info-title">Echtes Livestream</div>
-    <div class="info-text">HLS-Stream direkt vom ARD und ZDF CDN — kein Zwischenspeichern, keine Verzögerung.</div>
-  </div>
-  <div class="info-card">
-    <div class="info-icon">📱</div>
-    <div class="info-title">Auf jedem Gerät</div>
-    <div class="info-text">Funktioniert auf PC, Tablet und Handy — einfach Seite öffnen und einschalten.</div>
-  </div>
-  <div class="info-card">
-    <div class="info-icon">⚡</div>
-    <div class="info-title">Vollbild-Modus</div>
-    <div class="info-text">Klicke das Vollbild-Symbol oder drücke F auf der Tastatur für echtes Kino-Erlebnis.</div>
-  </div>
-  <div class="info-card">
-    <div class="info-icon">🔇</div>
-    <div class="info-title">Ton & Lautstärke</div>
-    <div class="info-text">Lautstärke per Slider regeln — beide Kanäle unabhängig voneinander steuerbar.</div>
-  </div>
-</section> -->
-
 <footer>
   Nur für privaten Gebrauch &nbsp;·&nbsp; Streams via <a href="https://www.daserste.de" target="_blank">ARD</a> &amp; <a href="https://www.zdf.de" target="_blank">ZDF</a>
 </footer>
 
 <script>
+// ── Detect PS4 browser (old WebKit) ──────────────────────────────────────
+const isPS4 = /PlayStation 4/.test(navigator.userAgent);
+const isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
+
 const STREAMS = {
-  ard: 'https://daserste-live.ard-mcdn.de/daserste/live/hls/de/master.m3u8',
+  // ARD: на PS4 используем низкий битрейт чтобы не зависало
+  ard: isPS4
+    ? 'https://daserste-live.ard-mcdn.de/daserste/live/hls/de/low/master.m3u8'
+    : 'https://daserste-live.ard-mcdn.de/daserste/live/hls/de/master.m3u8',
   zdf: 'https://zdf-hls-15.akamaized.net/hls/live/2016498/de/veryhigh/master.m3u8'
 };
 
-const hls = {};
+const hlsMap = {};
 const state = { ard: 'idle', zdf: 'idle' };
 
 function startStream(ch) {
@@ -621,36 +589,95 @@ function startStream(ch) {
   loader.classList.add('show');
   card.classList.add('active');
 
-  if (Hls.isSupported()) {
-    if (hls[ch]) { hls[ch].destroy(); }
-    hls[ch] = new Hls({ enableWorker: true, lowLatencyMode: false });
-    hls[ch].loadSource(STREAMS[ch]);
-    hls[ch].attachMedia(vid);
-    hls[ch].on(Hls.Events.MANIFEST_PARSED, () => {
+  // ── iOS Safari: нативный HLS через src ──────────────────────────────
+  if (isIOS) {
+    vid.src = STREAMS[ch];
+    vid.load();
+    // Звук: iOS требует явного взаимодействия пользователя — играем без muted
+    vid.muted = false;
+    vid.volume = 1;
+    vid.play()
+      .then(() => {
+        loader.classList.remove('show');
+        state[ch] = 'playing';
+        updatePlayBtn(ch);
+      })
+      .catch(() => {
+        // Если автозапуск заблокирован — убираем лоадер, показываем оверлей
+        loader.classList.remove('show');
+        overlay.classList.remove('hidden');
+        overlay.querySelector('.overlay-label').textContent = '▶ Нажми для запуска';
+        card.classList.remove('active');
+      });
+    return;
+  }
+
+  // ── PS4 / старые браузеры: нативный HLS без HLS.js воркера ──────────
+  if (isPS4 || !Hls.isSupported()) {
+    if (vid.canPlayType('application/vnd.apple.mpegurl') ||
+        vid.canPlayType('application/x-mpegURL')) {
+      vid.src = STREAMS[ch];
+      vid.muted = false;
+      vid.volume = 1;
+      vid.load();
       vid.play().catch(() => {});
       loader.classList.remove('show');
       state[ch] = 'playing';
       updatePlayBtn(ch);
+    } else {
+      loader.classList.remove('show');
+      overlay.classList.remove('hidden');
+      overlay.querySelector('.overlay-label').textContent = 'HLS nicht unterstützt';
+    }
+    return;
+  }
+
+  // ── Обычные браузеры: HLS.js ─────────────────────────────────────────
+  if (hlsMap[ch]) { hlsMap[ch].destroy(); }
+
+  hlsMap[ch] = new Hls({
+    enableWorker: true,
+    lowLatencyMode: false,
+    // Ограничиваем буфер чтобы не зависало на слабых устройствах
+    maxBufferLength: 30,
+    maxMaxBufferLength: 60,
+    startLevel: -1  // авто-качество
+  });
+
+  hlsMap[ch].loadSource(STREAMS[ch]);
+  hlsMap[ch].attachMedia(vid);
+
+  hlsMap[ch].on(Hls.Events.MANIFEST_PARSED, () => {
+    // Звук: включаем явно после клика пользователя
+    vid.muted = false;
+    vid.volume = parseFloat(document.getElementById('vol-' + ch).value);
+    vid.play().catch(() => {
+      // Браузер не дал — запускаем muted, потом пользователь сам включит звук
+      vid.muted = true;
+      vid.play().catch(() => {});
+      showUnmuteHint(ch);
     });
-    hls[ch].on(Hls.Events.ERROR, (e, data) => {
-      if (data.fatal) {
-        loader.classList.remove('show');
-        overlay.classList.remove('hidden');
-        overlay.querySelector('.overlay-label').textContent = '⚠ Verbindungsfehler — erneut versuchen';
-        card.classList.remove('active');
-      }
-    });
-  } else if (vid.canPlayType('application/vnd.apple.mpegurl')) {
-    vid.src = STREAMS[ch];
-    vid.play().catch(() => {});
     loader.classList.remove('show');
     state[ch] = 'playing';
     updatePlayBtn(ch);
-  } else {
-    loader.classList.remove('show');
-    overlay.classList.remove('hidden');
-    overlay.querySelector('.overlay-label').textContent = 'HLS nicht unterstützt';
-  }
+  });
+
+  hlsMap[ch].on(Hls.Events.ERROR, (e, data) => {
+    if (data.fatal) {
+      loader.classList.remove('show');
+      overlay.classList.remove('hidden');
+      overlay.querySelector('.overlay-label').textContent = '⚠ Fehler — erneut versuchen';
+      card.classList.remove('active');
+      state[ch] = 'idle';
+    }
+  });
+}
+
+// Подсказка "нажми чтобы включить звук" если autoplay заблокирован
+function showUnmuteHint(ch) {
+  const btn = document.getElementById('mute-' + ch);
+  btn.style.color = '#f59e0b';
+  btn.title = 'Нажми — включить звук';
 }
 
 function togglePlay(ch) {
@@ -678,34 +705,72 @@ function updatePlayBtn(ch) {
 function toggleMute(ch) {
   const vid = document.getElementById('vid-' + ch);
   vid.muted = !vid.muted;
+  const btn = document.getElementById('mute-' + ch);
+  btn.style.color = '';
+  // Обновить иконку
+  btn.innerHTML = vid.muted
+    ? '<svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:currentColor"><path d="M16.5 12A4.5 4.5 0 0 0 14 7.97v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51A8.8 8.8 0 0 0 21 12c0-4.28-3-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06A9 9 0 0 0 17.73 19L19 20.27 20.27 19 5.27 4 4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>'
+    : '<svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:currentColor"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>';
 }
 
 function setVolume(ch, val) {
   const vid = document.getElementById('vid-' + ch);
   vid.volume = parseFloat(val);
-  vid.muted = (parseFloat(val) === 0);
+  if (parseFloat(val) > 0 && vid.muted) {
+    vid.muted = false;
+    document.getElementById('mute-' + ch).innerHTML =
+      '<svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:currentColor"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>';
+  }
 }
 
 function goFullscreen(ch) {
+  const vid = document.getElementById('vid-' + ch);
   const wrap = document.getElementById('wrap-' + ch);
-  if (wrap.requestFullscreen) wrap.requestFullscreen();
-  else if (wrap.webkitRequestFullscreen) wrap.webkitRequestFullscreen();
+
+  // iOS Safari: только webkitEnterFullscreen на самом <video>
+  if (isIOS) {
+    if (vid.webkitEnterFullscreen) {
+      vid.webkitEnterFullscreen();
+    }
+    return;
+  }
+
+  // Все остальные
+  const el = wrap;
+  if (el.requestFullscreen)            { el.requestFullscreen(); }
+  else if (el.webkitRequestFullscreen) { el.webkitRequestFullscreen(); }
+  else if (el.mozRequestFullScreen)    { el.mozRequestFullScreen(); }
+  else if (el.msRequestFullscreen)     { el.msRequestFullscreen(); }
+  // Крайний случай — пробуем на video элементе
+  else if (vid.webkitEnterFullscreen)  { vid.webkitEnterFullscreen(); }
 }
 
 function startAll() {
   startStream('ard');
-  setTimeout(() => startStream('zdf'), 600);
+  setTimeout(() => startStream('zdf'), 800);
 }
 
-// Keyboard: press F for fullscreen on active card, Space pause/play
+function copyUrl(ch) {
+  const url = STREAMS[ch];
+  const btn = document.getElementById('copy-' + ch);
+  const orig = btn.innerHTML;
+  const ok = '<svg viewBox="0 0 24 24" style="width:13px;height:13px;fill:currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> Скопировано!';
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(url).then(() => {
+      btn.innerHTML = ok;
+      setTimeout(() => { btn.innerHTML = orig; }, 2000);
+    }).catch(() => { prompt('Скопируй ссылку:', url); });
+  } else {
+    prompt('Скопируй ссылку:', url);
+  }
+}
+
+// Space = пауза/плей
 document.addEventListener('keydown', e => {
   if (e.key === ' ' && e.target === document.body) {
     e.preventDefault();
     const active = document.querySelector('.channel-card.active');
-    if (active) {
-      const ch = active.id.replace('card-', '');
-      togglePlay(ch);
-    }
+    if (active) togglePlay(active.id.replace('card-', ''));
   }
 });
 
