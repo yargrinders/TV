@@ -98,7 +98,7 @@
 
 <section class="hero">
   <div class="hero-eyebrow"><span class="live-dot"></span>Livestream aktiv</div>
-  <p class="hero-sub">ARD Das Erste und ZDF direkt — kein Login, keine App. Einfach auf Play drücken und genießen.</p>
+  <!-- <p class="hero-sub">ARD Das Erste und ZDF direkt — kein Login, keine App. Einfach auf Play drücken und genießen.</p> -->
   <div class="hero-actions">
     <button class="btn btn-primary" onclick="startAll()">▶ Alle starten</button>
     <button class="btn btn-ghost" onclick="document.querySelector('.channels-section').scrollIntoView({behavior:'smooth'})">Zu den Kanälen ↓</button>
@@ -121,9 +121,9 @@
         </div>
         <div class="loader" id="loader-ard"><div class="spinner"></div></div>
       </div>
-      <div class="ps4-banner" id="ps4-banner-ard">
+      <!-- <div class="ps4-banner" id="ps4-banner-ard">
         <b>PS4:</b> Если нет звука — нажми 🔊 ниже. Если зависает — используй кнопку «Открыть m3u8» внизу.
-      </div>
+      </div> -->
       <div class="channel-info">
         <div class="channel-identity">
           <div class="channel-logo">
@@ -155,7 +155,7 @@
           <svg viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
         </button>
       </div>
-      <div class="stream-links" style="--ch-color: var(--ard-color)">
+      <!-- <div class="stream-links" style="--ch-color: var(--ard-color)">
         <span class="link-label">Плейлист:</span>
         <a class="stream-link" id="open-ard" href="https://daserste-live.ard-mcdn.de/daserste/live/hls/de/master.m3u8" target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
@@ -165,7 +165,7 @@
           <svg viewBox="0 0 24 24"><path d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12V1zm3 4H8a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2zm0 16H8V7h11v14z"/></svg>
           Копировать ссылку
         </button>
-      </div>
+      </div> -->
     </div>
 
     <!-- ZDF -->
@@ -180,9 +180,9 @@
         </div>
         <div class="loader" id="loader-zdf"><div class="spinner"></div></div>
       </div>
-      <div class="ps4-banner" id="ps4-banner-zdf">
+      <!-- <div class="ps4-banner" id="ps4-banner-zdf">
         <b>PS4:</b> Если нет звука — нажми 🔊 ниже. Если зависает — используй кнопку «Открыть m3u8» внизу.
-      </div>
+      </div> -->
       <div class="channel-info">
         <div class="channel-identity">
           <div class="channel-logo">
@@ -211,7 +211,7 @@
           <svg viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
         </button>
       </div>
-      <div class="stream-links" style="--ch-color: var(--zdf-color)">
+      <!-- <div class="stream-links" style="--ch-color: var(--zdf-color)">
         <span class="link-label">Плейлист:</span>
         <a class="stream-link" id="open-zdf" href="https://zdf-hls-15.akamaized.net/hls/live/2016498/de/veryhigh/master.m3u8" target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
@@ -221,7 +221,7 @@
           <svg viewBox="0 0 24 24"><path d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12V1zm3 4H8a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2zm0 16H8V7h11v14z"/></svg>
           Копировать ссылку
         </button>
-      </div>
+      </div> -->
     </div>
 
   </div>
@@ -233,39 +233,288 @@
 
 <script>
 // ── Device detection ────────────────────────────────────────────────────────
-const ua = navigator.userAgent;
+const ua = navigator.userAgent || '';
 const isPS4 = /PlayStation 4/i.test(ua);
 const isIOS = /iPhone|iPad|iPod/i.test(ua);
 
 // ── Stream URLs ─────────────────────────────────────────────────────────────
-// PS4: используем Akamai CDN URL для ARD — он имеет аудио встроенное в .ts сегменты
-// (без отдельного EXT-X-MEDIA audio track, который PS4 не умеет мёрджить)
-// и низкий битрейт чтобы не зависало
-// ZDF: для PS4 берём /high/ вместо /veryhigh/ — меньше нагрузки
-const STREAMS = {
-  ard: isPS4
-    ? 'https://derste247livede.akamaized.net/hls/live/658317/daserste_de/master.m3u8'
-    : 'https://daserste-live.ard-mcdn.de/daserste/live/hls/de/master.m3u8',
-  zdf: isPS4
-    ? 'https://zdf-hls-15.akamaized.net/hls/live/2016498/de/high/master.m3u8'
-    : 'https://zdf-hls-15.akamaized.net/hls/live/2016498/de/veryhigh/master.m3u8'
+// PS4: не один URL, а список запасных потоков.
+// Старый PS4 WebKit часто виснет на master-плейлистах с отдельной audio дорожкой,
+// поэтому при зависании код сам переключает следующий вариант.
+const STREAM_CANDIDATES = {
+  ard: isPS4 ? [
+    // 1) Akamai fallback Das Erste — чаще стабильнее на старых устройствах
+    'https://derste247livede.akamaized.net/hls/live/658317/daserste_de/master.m3u8',
+
+    // 2) Старый ARD mcdn — иногда лучше дружит со старыми HLS-плеерами
+    'https://mcdn.daserste.de/daserste/de/master.m3u8',
+
+    // 3) Новый официальный ARD master
+    'https://daserste-live.ard-mcdn.de/daserste/live/hls/de/master.m3u8',
+
+    // 4) Новый low, если существует на CDN
+    'https://daserste-live.ard-mcdn.de/daserste/live/hls/de/low/master.m3u8'
+  ] : [
+    'https://daserste-live.ard-mcdn.de/daserste/live/hls/de/master.m3u8'
+  ],
+
+  zdf: isPS4 ? [
+    // Для PS4 сначала high, не veryhigh
+    'https://zdf-hls-15.akamaized.net/hls/live/2016498/de/high/master.m3u8',
+    'https://zdf-hls-15.akamaized.net/hls/live/2016498/de/med/master.m3u8',
+    'https://zdf-hls-15.akamaized.net/hls/live/2016498/de/low/master.m3u8',
+
+    // Старые ZDF CDN варианты как запасной вариант
+    'https://zdf-hls-01.akamaized.net/hls/live/2002460/de/high/master.m3u8',
+    'https://zdf-hls-01.akamaized.net/hls/live/2002460/de/med/master.m3u8',
+    'https://zdf-hls-01.akamaized.net/hls/live/2002460/de/low/master.m3u8'
+  ] : [
+    'https://zdf-hls-15.akamaized.net/hls/live/2016498/de/veryhigh/master.m3u8'
+  ]
 };
 
-// Ссылки в блоке "Плейлист" тоже обновляем под PS4
+const streamIndex = { ard: 0, zdf: 0 };
+const STREAMS = {
+  ard: STREAM_CANDIDATES.ard[0],
+  zdf: STREAM_CANDIDATES.zdf[0]
+};
+
+// Ссылки в блоке "Плейлист" обновляем под текущий поток
+function updateOpenLinks() {
+  ['ard','zdf'].forEach(ch => {
+    const a = document.getElementById('open-' + ch);
+    if (a) a.href = STREAM_CANDIDATES[ch][streamIndex[ch]];
+  });
+}
+updateOpenLinks();
+
 if (isPS4) {
-  document.getElementById('open-ard').href = STREAMS.ard;
-  document.getElementById('open-zdf').href = STREAMS.zdf;
-  // Показываем баннеры-подсказки для PS4
   document.getElementById('ps4-banner-ard').style.display = 'block';
   document.getElementById('ps4-banner-zdf').style.display = 'block';
 }
 
 const hlsMap = {};
 const state = { ard: 'idle', zdf: 'idle' };
+const watchdog = { ard: null, zdf: null };
+const lastTime = { ard: 0, zdf: 0 };
+const stuckCount = { ard: 0, zdf: 0 };
 
-// ── startStream ─────────────────────────────────────────────────────────────
-function startStream(ch) {
+function currentUrl(ch) {
+  return STREAM_CANDIDATES[ch][streamIndex[ch]];
+}
+
+// На PS4 лучше держать только один активный video.
+// Два HLS одновременно быстро забивают старый браузер и начинается "картинка стоит".
+function stopOtherOnPS4(ch) {
+  if (!isPS4) return;
+  const other = ch === 'ard' ? 'zdf' : 'ard';
+  const v = document.getElementById('vid-' + other);
+  if (!v) return;
+  try {
+    v.pause();
+    v.removeAttribute('src');
+    v.load();
+    state[other] = 'idle';
+    document.getElementById('overlay-' + other).classList.remove('hidden');
+    document.getElementById('card-' + other).classList.remove('active');
+    stopWatchdog(other);
+    updatePlayBtn(other);
+  } catch(e) {}
+}
+
+function startStream(ch, forceUrl) {
   const vid = document.getElementById('vid-' + ch);
+  const overlay = document.getElementById('overlay-' + ch);
+  const loader = document.getElementById('loader-' + ch);
+  const card = document.getElementById('card-' + ch);
+
+  stopOtherOnPS4(ch);
+
+  overlay.classList.add('hidden');
+  loader.classList.add('show');
+  card.classList.add('active');
+
+  vid.muted = false;
+  vid.defaultMuted = false;
+  vid.volume = parseFloat(document.getElementById('vol-' + ch).value) || 1;
+  vid.preload = isPS4 ? 'none' : 'auto';
+
+  if (isPS4) {
+    vid.controls = true;
+    vid.setAttribute('controls', 'controls');
+    vid.removeAttribute('playsinline');
+    vid.removeAttribute('webkit-playsinline');
+  }
+
+  const url = forceUrl || currentUrl(ch);
+
+  // ── iOS Safari: нативный HLS ───────────────────────────────────────────
+  if (isIOS) {
+    nativePlay(ch, url);
+    return;
+  }
+
+  // ── PS4 и браузеры с нативным HLS / без MSE ───────────────────────────
+  if (isPS4 || !window.Hls || !Hls.isSupported()) {
+    nativePlay(ch, url);
+    return;
+  }
+
+  // ── HLS.js для нормальных браузеров ───────────────────────────────────
+  if (hlsMap[ch]) hlsMap[ch].destroy();
+
+  hlsMap[ch] = new Hls({
+    enableWorker: true,
+    lowLatencyMode: false,
+    maxBufferLength: 30,
+    maxMaxBufferLength: 60,
+    liveSyncDurationCount: 4,
+    startLevel: -1
+  });
+
+  hlsMap[ch].loadSource(url);
+  hlsMap[ch].attachMedia(vid);
+
+  hlsMap[ch].on(Hls.Events.MANIFEST_PARSED, () => {
+    playAfterLoad(ch);
+  });
+
+  hlsMap[ch].on(Hls.Events.ERROR, (e, data) => {
+    if (data.fatal) {
+      if (isPS4) tryNextStream(ch, 'fatal hls.js error');
+      else showError(ch, '⚠ Fehler — erneut versuchen');
+    }
+  });
+}
+
+function nativePlay(ch, url) {
+  const vid = document.getElementById('vid-' + ch);
+
+  if (hlsMap[ch]) {
+    hlsMap[ch].destroy();
+    hlsMap[ch] = null;
+  }
+
+  try {
+    vid.pause();
+    vid.removeAttribute('src');
+    vid.load();
+  } catch(e) {}
+
+  setTimeout(() => {
+    vid.src = url;
+    updateOpenLinks();
+    vid.load();
+    playAfterLoad(ch);
+  }, isPS4 ? 250 : 0);
+}
+
+function playAfterLoad(ch) {
+  const vid = document.getElementById('vid-' + ch);
+  const loader = document.getElementById('loader-' + ch);
+  const overlay = document.getElementById('overlay-' + ch);
+  const card = document.getElementById('card-' + ch);
+
+  vid.muted = false;
+  vid.defaultMuted = false;
+  vid.volume = parseFloat(document.getElementById('vol-' + ch).value) || 1;
+
+  const p = vid.play();
+
+  if (p && p.then) {
+    p.then(() => {
+      loader.classList.remove('show');
+      state[ch] = 'playing';
+      updatePlayBtn(ch);
+      startWatchdog(ch);
+    }).catch(() => {
+      if (isPS4) {
+        setTimeout(() => {
+          vid.play().then(() => {
+            loader.classList.remove('show');
+            state[ch] = 'playing';
+            updatePlayBtn(ch);
+            startWatchdog(ch);
+          }).catch(() => {
+            loader.classList.remove('show');
+            overlay.classList.remove('hidden');
+            overlay.querySelector('.overlay-label').textContent = '▶ Play nochmal drücken';
+            card.classList.remove('active');
+          });
+        }, 700);
+      } else {
+        vid.muted = true;
+        vid.play().catch(() => {});
+        highlightMuteBtn(ch);
+        loader.classList.remove('show');
+        state[ch] = 'playing';
+        updatePlayBtn(ch);
+      }
+    });
+  } else {
+    loader.classList.remove('show');
+    state[ch] = 'playing';
+    updatePlayBtn(ch);
+    startWatchdog(ch);
+  }
+}
+
+function showError(ch, msg) {
+  const loader = document.getElementById('loader-' + ch);
+  const overlay = document.getElementById('overlay-' + ch);
+  const card = document.getElementById('card-' + ch);
+  loader.classList.remove('show');
+  overlay.classList.remove('hidden');
+  overlay.querySelector('.overlay-label').textContent = msg;
+  card.classList.remove('active');
+  state[ch] = 'idle';
+  stopWatchdog(ch);
+}
+
+// PS4 watchdog: если currentTime не двигается, перезагружаем или меняем URL.
+// Это лечит зависание через 1–2 минуты, если CDN/variant не дружит с PS4.
+function startWatchdog(ch) {
+  if (!isPS4) return;
+  stopWatchdog(ch);
+
+  const vid = document.getElementById('vid-' + ch);
+  lastTime[ch] = vid.currentTime || 0;
+  stuckCount[ch] = 0;
+
+  watchdog[ch] = setInterval(() => {
+    if (state[ch] !== 'playing' || vid.paused) return;
+
+    const t = vid.currentTime || 0;
+    const advanced = t > lastTime[ch] + 0.2;
+    lastTime[ch] = t;
+
+    if (advanced) {
+      stuckCount[ch] = 0;
+      return;
+    }
+
+    stuckCount[ch]++;
+
+    // 3 проверки по 8 секунд = примерно 24 сек без движения
+    if (stuckCount[ch] >= 3) {
+      tryNextStream(ch, 'stalled watchdog');
+    }
+  }, 8000);
+}
+
+function stopWatchdog(ch) {
+  if (watchdog[ch]) {
+    clearInterval(watchdog[ch]);
+    watchdog[ch] = null;
+  }
+}
+
+function tryNextStream(ch, reason) {
+  stopWatchdog(ch);
+
+  const list = STREAM_CANDIDATES[ch];
+  streamIndex[ch] = (streamIndex[ch] + 1) % list.length;
+
   const overlay = document.getElementById('overlay-' + ch);
   const loader = document.getElementById('loader-' + ch);
   const card = document.getElementById('card-' + ch);
@@ -274,80 +523,28 @@ function startStream(ch) {
   loader.classList.add('show');
   card.classList.add('active');
 
-  // Всегда начинаем со звуком (пользователь только что нажал — это user gesture)
-  vid.muted = false;
-  vid.volume = parseFloat(document.getElementById('vol-' + ch).value);
-  // На PS4 включаем родные controls как запасной вариант управления
-  if (isPS4) vid.controls = true;
-
-  // ── iOS Safari: нативный HLS ───────────────────────────────────────────
-  if (isIOS) {
-    vid.src = STREAMS[ch];
-    vid.load();
-    vid.play()
-      .then(() => { loader.classList.remove('show'); state[ch] = 'playing'; updatePlayBtn(ch); })
-      .catch(() => { loader.classList.remove('show'); overlay.classList.remove('hidden'); overlay.querySelector('.overlay-label').textContent = '▶ Nochmal drücken'; card.classList.remove('active'); });
-    return;
-  }
-
-  // ── PS4 и браузеры с нативным HLS (без MSE) ───────────────────────────
-  if (isPS4 || !Hls.isSupported()) {
-    if (hlsMap[ch]) { hlsMap[ch].destroy(); hlsMap[ch] = null; }
-    vid.src = STREAMS[ch];
-    vid.load();
-    vid.play()
-      .then(() => { loader.classList.remove('show'); state[ch] = 'playing'; updatePlayBtn(ch); })
-      .catch(() => {
-        // PS4 иногда требует второй попытки после load()
-        setTimeout(() => {
-          vid.play()
-            .then(() => { loader.classList.remove('show'); state[ch] = 'playing'; updatePlayBtn(ch); })
-            .catch(() => { loader.classList.remove('show'); overlay.classList.remove('hidden'); overlay.querySelector('.overlay-label').textContent = '▶ Play nochmal drücken'; card.classList.remove('active'); });
-        }, 500);
-      });
-    return;
-  }
-
-  // ── HLS.js (Chrome, Firefox, Edge) ────────────────────────────────────
-  if (hlsMap[ch]) hlsMap[ch].destroy();
-
-  hlsMap[ch] = new Hls({
-    enableWorker: true,
-    lowLatencyMode: false,
-    maxBufferLength: 30,
-    maxMaxBufferLength: 60,
-    startLevel: -1
-  });
-
-  hlsMap[ch].loadSource(STREAMS[ch]);
-  hlsMap[ch].attachMedia(vid);
-
-  hlsMap[ch].on(Hls.Events.MANIFEST_PARSED, () => {
-    vid.muted = false;
-    vid.volume = parseFloat(document.getElementById('vol-' + ch).value);
-    vid.play().catch(() => {
-      // Браузер заблокировал автозапуск — запускаем muted, подсвечиваем кнопку звука
-      vid.muted = true;
-      vid.play().catch(() => {});
-      highlightMuteBtn(ch);
-    });
-    loader.classList.remove('show');
-    state[ch] = 'playing';
-    updatePlayBtn(ch);
-  });
-
-  hlsMap[ch].on(Hls.Events.ERROR, (e, data) => {
-    if (data.fatal) {
-      loader.classList.remove('show');
-      overlay.classList.remove('hidden');
-      overlay.querySelector('.overlay-label').textContent = '⚠ Fehler — erneut versuchen';
-      card.classList.remove('active');
-      state[ch] = 'idle';
-    }
-  });
+  console.log('[PS4 fallback]', ch, reason, '->', list[streamIndex[ch]]);
+  startStream(ch, list[streamIndex[ch]]);
 }
 
-// Подсвечиваем кнопку mute — сигнал что звук надо включить вручную
+// PS4: при нативных stalled/error событиях тоже меняем поток
+['ard','zdf'].forEach(ch => {
+  const vid = document.getElementById('vid-' + ch);
+
+  vid.addEventListener('play',  () => { state[ch] = 'playing'; updatePlayBtn(ch); });
+  vid.addEventListener('pause', () => { if (state[ch] !== 'idle') state[ch] = 'paused'; updatePlayBtn(ch); });
+
+  vid.addEventListener('stalled', () => {
+    if (isPS4 && state[ch] === 'playing') setTimeout(() => tryNextStream(ch, 'native stalled'), 2000);
+  });
+
+  vid.addEventListener('error', () => {
+    if (isPS4) setTimeout(() => tryNextStream(ch, 'native error'), 500);
+  });
+
+  vid.addEventListener('volumechange', () => updateMuteIcon(ch));
+});
+
 function highlightMuteBtn(ch) {
   const btn = document.getElementById('mute-' + ch);
   btn.style.color = '#f59e0b';
@@ -355,12 +552,11 @@ function highlightMuteBtn(ch) {
   btn.title = '⚠ Нажми — включить звук';
 }
 
-// ── togglePlay ───────────────────────────────────────────────────────────────
 function togglePlay(ch) {
   const vid = document.getElementById('vid-' + ch);
   if (state[ch] === 'idle') { startStream(ch); return; }
-  if (vid.paused) { vid.play(); state[ch] = 'playing'; }
-  else { vid.pause(); state[ch] = 'paused'; }
+  if (vid.paused) { vid.play(); state[ch] = 'playing'; startWatchdog(ch); }
+  else { vid.pause(); state[ch] = 'paused'; stopWatchdog(ch); }
   updatePlayBtn(ch);
 }
 
@@ -373,51 +569,58 @@ function updatePlayBtn(ch) {
     : '<svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:currentColor"><path d="M8 5v14l11-7z"/></svg>';
 }
 
-// ── toggleMute ───────────────────────────────────────────────────────────────
 const ICON_SOUND = '<svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:currentColor"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>';
 const ICON_MUTE  = '<svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:currentColor"><path d="M16.5 12A4.5 4.5 0 0 0 14 7.97v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51A8.8 8.8 0 0 0 21 12c0-4.28-3-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06A9 9 0 0 0 17.73 19L19 20.27 20.27 19 5.27 4 4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>';
 
 function toggleMute(ch) {
   const vid = document.getElementById('vid-' + ch);
-  const btn = document.getElementById('mute-' + ch);
   vid.muted = !vid.muted;
-  btn.innerHTML = vid.muted ? ICON_MUTE : ICON_SOUND;
+  if (!vid.muted && vid.volume === 0) vid.volume = 1;
+  updateMuteIcon(ch);
+}
+
+function updateMuteIcon(ch) {
+  const vid = document.getElementById('vid-' + ch);
+  const btn = document.getElementById('mute-' + ch);
+  btn.innerHTML = (vid.muted || vid.volume === 0) ? ICON_MUTE : ICON_SOUND;
   btn.style.color = '';
   btn.style.borderColor = '';
-  btn.title = vid.muted ? 'Stumm' : 'Ton an/aus';
+  btn.title = (vid.muted || vid.volume === 0) ? 'Stumm' : 'Ton an/aus';
 }
 
 function setVolume(ch, val) {
   const vid = document.getElementById('vid-' + ch);
   vid.volume = parseFloat(val);
-  if (parseFloat(val) > 0 && vid.muted) {
-    vid.muted = false;
-    document.getElementById('mute-' + ch).innerHTML = ICON_SOUND;
-  }
+  if (vid.volume > 0) vid.muted = false;
+  updateMuteIcon(ch);
 }
 
-// ── Fullscreen ────────────────────────────────────────────────────────────────
 function goFullscreen(ch) {
   const vid = document.getElementById('vid-' + ch);
   const wrap = document.getElementById('wrap-' + ch);
-  // iOS Safari и PS4: только через video элемент
+
   if (isIOS || isPS4) {
     if (vid.webkitEnterFullscreen) { vid.webkitEnterFullscreen(); return; }
   }
-  // Стандарт
-  if      (wrap.requestFullscreen)            wrap.requestFullscreen();
-  else if (wrap.webkitRequestFullscreen)      wrap.webkitRequestFullscreen();
-  else if (wrap.mozRequestFullScreen)         wrap.mozRequestFullScreen();
-  else if (vid.webkitEnterFullscreen)         vid.webkitEnterFullscreen();
+
+  if      (wrap.requestFullscreen)       wrap.requestFullscreen();
+  else if (wrap.webkitRequestFullscreen) wrap.webkitRequestFullscreen();
+  else if (wrap.mozRequestFullScreen)    wrap.mozRequestFullScreen();
+  else if (vid.webkitEnterFullscreen)    vid.webkitEnterFullscreen();
 }
 
+// На PS4 "Alle starten" опасно — стартуем только ARD, иначе два HLS убивают браузер.
 function startAll() {
+  if (isPS4) {
+    startStream('ard');
+    return;
+  }
   startStream('ard');
   setTimeout(() => startStream('zdf'), 800);
 }
 
 function copyUrl(ch) {
-  const url = STREAMS[ch];
+  const url = currentUrl(ch);
   const btn = document.getElementById('copy-' + ch);
   const orig = btn.innerHTML;
   const ok = '<svg viewBox="0 0 24 24" style="width:13px;height:13px;fill:currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> Скопировано!';
@@ -428,20 +631,12 @@ function copyUrl(ch) {
   }
 }
 
-// Space = пауза/плей
 document.addEventListener('keydown', e => {
   if (e.key === ' ' && e.target === document.body) {
     e.preventDefault();
     const active = document.querySelector('.channel-card.active');
     if (active) togglePlay(active.id.replace('card-', ''));
   }
-});
-
-// vid события
-['ard','zdf'].forEach(ch => {
-  const vid = document.getElementById('vid-' + ch);
-  vid.addEventListener('play',  () => { state[ch] = 'playing'; updatePlayBtn(ch); });
-  vid.addEventListener('pause', () => { if (state[ch] !== 'idle') state[ch] = 'paused'; updatePlayBtn(ch); });
 });
 
 // Clock
